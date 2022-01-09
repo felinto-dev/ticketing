@@ -15,8 +15,6 @@ spec:
       containers:
         - name: client
           image: felintodev/client
-      imagePullSecrets:
-        - name: registry-secret
 ---
 apiVersion: v1
 kind: Service

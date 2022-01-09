@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev --poll --exit-child --respawn --transpile-only --watch src src/index.ts",
-    "test": "jest --watchAll -w 25%"
+    "test": "jest --watchAll -w 25%",
+    "test:ci": "jest"
   },
   "jest": {
     "preset": "ts-jest",

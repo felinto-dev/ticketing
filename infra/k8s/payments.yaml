@@ -36,8 +36,6 @@ spec:
                 secretKeyRef:
                   name: stripe-sandbox
                   key: STRIPE_KEY
-      imagePullSecrets:
-        - name: registry-secret
 ---
 apiVersion: v1
 kind: Service
