@@ -1,7 +1,5 @@
 import Link from 'next/link'
 
-import { buildClient } from '../api/build-client'
-
 export const LandingPage = ({ tickets }) => {
 	const ticketList = tickets.map((ticket) => {
 		return (
