@@ -1,23 +1,23 @@
-name: deploy-auth
+name: deploy-tickets
 
 on:
   push:
     branches:
       - master
     paths:
-      - "auth/**"
+      - "tickets/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd auth && docker build -t felintodev/auth .
+      - run: cd tickets && docker build -t felintodev/tickets .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push felintodev/auth
+      - run: docker push felintodev/tickets
       - name: Install dependencies
         run: |
           sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.2.4/scw-2.2.4-linux-x86_64"
@@ -33,5 +33,5 @@ jobs:
           scw init secret-key=${{ secrets.SCW_SECRET_KEY }} send-telemetry=false install-autocomplete=false with-ssh-key=false region=fr-par zone=fr-par-1
       - name: Install kubeconfig
         run: |
-          scw k8s kubeconfig install 3422ab29-52df-42f3-86cd-7494c1c7b17f
-      - run: kubectl rollout restart deployment auth
+          scw k8s kubeconfig install ${{ secrets.SCW_CLUSTER_ID }}
+      - run: kubectl rollout restart deployment tickets
